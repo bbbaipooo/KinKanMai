@@ -1,0 +1,144 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<Order>
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Receiveds";
+    Layout = "_Layout";
+}
+
+<html>
+<head>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&display=swap" rel="stylesheet">
+    <!-- CSS Import-->
+    <link rel="stylesheet" href="/css/Receiveds.css" />
+    <!-- for icons  -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <!-- MORE -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+
+<body>
+    <section id="receiveds" class="section">
+
+        <!-- receiveds-box-area -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="sec-title text-center mb-5">
+                            <div class="sec-title-shape mb-4">
+                                @*<img src="/title-shape.svg" alt="" />*@
+                                <h1 class="h1-title ">Receiveds </h1>
+                                <img src="/title-shape.svg" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <div class="receiveds-area">
+            <div id="menu-dish" class="row g-xxl-5">
+
+                <!-- BOX -->
+                @if (Model != null && Model.Count() > 0)
+                {
+                    @foreach (var order in Model.OrderByDescending(x => x.CreateDate).Where(a => a.OrderStatusId == 1))
+                    {
+                        var user = await UserManager.FindByIdAsync(order.UserId);
+                        var Receiveduser = await UserManager.FindByIdAsync(order.ReceivedUserId);
+
+                        <div class="col-lg-4 col-sm-6 re-box-wp ">
+                            <div class="re-box">
+                                <div class="dish-info">
+                                    @*<img src="" class="card-img-top" alt="..." />*@
+
+                                    <!-- name -->
+                                    <div class="user">
+                                        <i class='bx bx-user-circle'> Username : </i>
+                                        <p>@user.UserName</p>
+                                    </div>
+
+                                    <!-- status -->
+                                    <div class="status">
+                                        <i class='bx bx-timer'> Status : </i>
+                                        <p>@order.OrderStatus.StatusName  </p>
+                                    </div>
+
+                                    <!-- date -->
+                                    <div class="date">
+                                        <i class='bx bx-calendar'> Date : </i>
+                                        <p>@order.CreateDate</p>
+                                    </div>
+                                </div>
+
+
+                                <!-- order -->
+                                <div class="order-list-scroll" style="overflow-y: auto; overflow-x: hidden; height: 180px; margin-bottom: 10px">
+                                    <div class="row">
+                                        @foreach (var item in order.OrderDetail)
+                                        {
+                                            <p>
+
+                                                <div class="col-sm-4"><i class='bx bx-menu-alt-right'></i>  @item.Menu.MenuName </div> <!-- menuname -->
+                                                <div class="col-sm-2"><i class='bx bx-bitcoin'></i> @item.Menu.Price</div>     <!-- Price -->
+                                                <div class="col-sm-4"><i class='bx bx-store'></i> : @item.Menu.Shop.MenuName</div>     <!-- shopname -->
+                                                <div class="col-sm-2">x @item.Quantity</div>                                                   <!-- Quantity -->
+
+                                            </p>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="dist-bottom-row">
+                                    <div class="mb-2"><h7>Description: @order.Description</h7></div>
+                                    @if (Receiveduser is not null)
+                                    {
+                                        <div class="mb-2"><h7>Received by : @Receiveduser.UserName</h7></div>
+                                    }
+                                    <ul>
+                                        <li>
+                                            <h7>Total Price : @(order.OrderDetail.Select(item => item.Menu.Price * item.Quantity).Sum())</h7>
+                                        </li>
+                                        <li>
+
+                                            <!-- order Detail -->
+                                            @if (order.OrderStatusId == 1)
+                                            {
+                                                @*<div class="mb-2"></div>*@
+                                                <form method="post" action="/Received/UpdateOrder">
+                                                    <input type="hidden" class="d-none" name="orderId" value="@order.Id" />
+                                                    <button type="submit" class="btn btn-danger">Take Out</button>
+                                                </form>
+                                            }
+
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    }
+
+                }
+                else
+                {
+                    <h5>No orders</h5>
+                }
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+

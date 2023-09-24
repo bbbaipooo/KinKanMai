@@ -1,0 +1,258 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<Order>
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Receiveds";
+    Layout = "_Layout";
+}
+<html>
+<head>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&display=swap" rel="stylesheet">
+    <!-- CSS Import-->
+    <!-- for icons  -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <!-- MORE -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+<style>
+    :root {
+        --bg-color: #171618;
+        --text-color: #171618;
+        --main-color: #b40000;
+        --second-color: #96221c;
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+        background: url("https://cdn.discordapp.com/attachments/887322828716781598/1101706303069495396/Fotoram.io.jpg")no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        font-family: 'Anton', sans-serif;
+        font-family: 'Caveat', cursive;
+        font-family: 'Lato', sans-serif;
+        color: white;
+    }
+
+    .btn {
+        background-color: #96221c;
+        border: none;
+        border-radius: 10px;
+        color: white;
+    }
+
+    .receiveds-area {
+        display: inline-block !important;
+    }
+
+    .re-box-wp {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .re-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+        backdrop-filter: blur(100px);
+        background-color: rgba(0, 0, 0, 0.6 );
+        box-shadow: 28px 28px 40px #2f2f2f, -5px -5px 20px #000000;
+        display: flow-root;
+        height: 510px;
+        padding: 10px 0px 10px 40px;
+        margin: 50px 10px 10px 10px;
+        font-size: 16px;
+    }
+
+    .h1-title {
+        font-size: 47px;
+        font-weight: 700;
+        line-height: 56px;
+        margin-top: 100px;
+        margin-bottom: 15px;
+        text-transform: capitalize;
+        position: relative;
+        color: white;
+        letter-spacing: 15px;
+    }
+
+    .user {
+        margin-top: 10px;
+        margin-right: 0px;
+    }
+
+    .user i, .status i, .date i {
+            font-size: 18px;
+            font-weight: 900;
+            color: red;
+    }
+
+    .user p, .status p, .date p {
+            font-size: 16px;
+            color: white;
+    }
+
+    .complete {
+        color: #03AC13;
+    }
+
+    .received {
+        color: red;
+    }
+
+    .order-list-scroll::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    .order-list-scroll::-webkit-scrollbar-track {
+        background-color: #333235;
+        border-radius: 10px;
+    }
+
+    .order-list-scroll::-webkit-scrollbar-thumb {
+        background: var(--second-color);
+        border-radius: 10px;
+    }
+
+
+
+    .re-box:hover {
+        transform: scale(1.03);
+    }
+
+    .dist-bottom-row ul {
+        display: flex;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+        .dist-bottom-row ul li:last-child {
+            text-align: right;
+        }
+
+    .dist-bottom-row {
+        padding: 0 0px;
+        width: 350px;
+    }
+
+        .dist-bottom-row ul li {
+            display: flex;
+            align-items: center;
+        }
+
+    .dish-info {
+        padding: 0 8px 0;
+        width: 390px;
+        height: 210px;
+        position: center;
+    }
+
+</style>
+
+<body>
+    <section id="receiveds" class="section">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="sec-title text-center mb-5">
+                                <div class="sec-title-shape mb-4">
+                                    @*<img src="/title-shape.svg" alt="" />*@
+                                    <h1 class="h1-title ">UserReceiveds </h1>
+                                    <img src="/title-shape.svg" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <div class="receiveds-area">
+                <div id="menu-dish" class="row g-xxl-5">
+                    @if (Model != null && Model.Count() > 0)
+                    {
+                    @foreach (var order in Model.OrderByDescending(x => x.CreateDate))
+                            {
+                                var user = await UserManager.FindByIdAsync(order.UserId);
+                                var Receiveduser = await UserManager.FindByIdAsync(order.ReceivedUserId);
+                                <div class="col-lg-4 col-sm-6 re-box-wp">
+                                    <div class="re-box">
+                                        <div class="dish-info">
+                                            <div class="user">
+                                                <i class='bx bx-user-circle'> Username : </i>
+                                                <p>@user.UserName</p>
+                                            </div>
+                                            @if (@order.OrderStatus.StatusName == "Complete")
+                                            {
+                                                <div class="complete">
+                                                    <i class='bx bx-timer'> Status : </i>
+                                                    <p>@order.OrderStatus.StatusName  </p>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="received">
+                                                    <i class='bx bx-timer'> Status : </i>
+                                                    <p>@order.OrderStatus.StatusName  </p>
+                                                </div>
+                                            }
+                                            <div class="date">
+                                                <i class='bx bx-calendar'> Date : </i>
+                                                <p>@order.CreateDate</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="order-list-scroll" style="overflow-y: auto; overflow-x: hidden; height: 180px; margin-bottom: 10px">
+                                            <div class="row">  
+                                                    @foreach (var item in order.OrderDetail)
+                                                    {
+                                                    <p>
+                                                        <div class="col-sm-4"><i class='bx bx-menu-alt-right'></i>  @item.Menu.MenuName </div> <!-- menuname -->
+                                                        <div class="col-sm-2"><i class='bx bx-bitcoin'></i> @item.Menu.Price</div>     <!-- Price -->
+                                                        <div class="col-sm-4"><i class='bx bx-store'></i> : @item.Menu.Shop.MenuName</div>     <!-- shopname -->
+                                                        <div class="col-sm-2">x @item.Quantity</div>
+                                                    </p>
+                                                    }
+                                            </div>
+                                        </div>
+                                        <div class="dist-bottom-row">
+                                            <div class="mb-2"><h7>Description: @order.Description</h7></div>
+                                            @*@if (Receiveduser is not null)
+                                            {
+                                                <div class="mb-2"><h7>Received by : @Receiveduser.UserName</h7></div>
+                                            }*@
+                                            <ul>
+                                                <li>
+                                                    <h7>Total Price : @(order.OrderDetail.Select(item => item.Menu.Price * item.Quantity).Sum())</h7>
+                                                </li>
+                                                <li>
+
+                                                    <form method="post" action="/Received/UpdateReceivedOrder">
+                                                        <input type="hidden" name="orderId" value="@order.Id" />
+                                                        <input type="hidden" name="newStatus" value="3" />
+                                                        <button type="submit" class="btn btn-inBox">Complete</button>
+                                                    </form>
+
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                    }
+                    else
+                    {
+                        <h5>No orders</h5>
+                    }
+            </div>
+    </div>
+    <footer>
+        <a href="/home/index" class="btn my-2">Back To Home</a>
+    </footer>
+    </section>
+</body>
+</html>

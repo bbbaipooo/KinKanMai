@@ -1,0 +1,129 @@
+﻿:root {
+    --bg-color: #171618;
+    --text-color: #171618;
+    --main-color: #b40000;
+    --second-color: #96221c;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    color: white;
+    background: url("https://media.discordapp.net/attachments/874582719273787402/1102506913763184640/Fotoram.io_1.jpg")no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.btn {
+    background-color: #96221c;
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+
+/*#####################################  RECEIVE AREA ###################################*/
+.receiveds-area {
+    display: inline-block !important;
+}
+
+.re-box-wp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.re-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    backdrop-filter: blur(100px);
+    background-color: rgba(0, 0, 0, 0.6 );
+    box-shadow: 28px 28px 40px #2f2f2f, -5px -5px 20px #000000;
+    display: flow-root;
+    height: 510px;
+    padding: 10px 0px 10px 40px;
+    margin: 50px 10px 10px 10px;
+    font-size: 16px;
+}
+
+.h1-title {
+    font-size: 47px;
+    font-weight: 700;
+    line-height: 56px;
+    margin-top: 100px;
+    margin-bottom: 15px;
+    text-transform: capitalize;
+    position: relative;
+    color: white;
+    letter-spacing: 15px;
+}
+
+.user {
+    margin-top: 10px;
+    margin-right: 0px;
+}
+
+    .user i, .status i, .date i {
+        font-size: 18px;
+        font-weight: 900;
+        color: red;
+    }
+
+    .user p, .status p, .date p {
+        font-size: 16px;
+        color: white;
+    }
+
+/*##################################### Scroll Bar in Order List ###################################*/
+
+
+.order-list-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.order-list-scroll::-webkit-scrollbar-track {
+    background-color: #333235;
+    border-radius: 10px;
+}
+
+.order-list-scroll::-webkit-scrollbar-thumb {
+    background: var(--second-color);
+    border-radius: 10px;
+}
+
+
+
+.re-box:hover {
+    transform: scale(1.03);
+}
+
+.dist-bottom-row ul {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+}
+
+    .dist-bottom-row ul li:last-child {
+        text-align: right;
+    }
+
+.dist-bottom-row {
+    padding: 0 0px;
+    width: 350px;
+}
+
+    .dist-bottom-row ul li {
+        display: flex;
+        align-items: center;
+    }
+
+.dish-info {
+    padding: 0 8px 0;
+    width: 390px;
+    height: 210px;
+    position: center;
+}

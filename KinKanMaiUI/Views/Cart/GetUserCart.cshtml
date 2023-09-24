@@ -1,0 +1,80 @@
+﻿@model ShoppingCart
+@{
+    ViewData["Title"] = "GetUserCart";
+    Layout = "_Layout";
+}
+<link rel="stylesheet" href="~/css/GetUserCart.css" />
+
+    <body>
+        <div style="width:100%" class="mt-2">
+       
+            @if (Model != null && Model.CartDetails != null && Model.CartDetails.Count > 0)
+            {
+                <h1>MyCart</h1>
+                <div class="background">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Menu</th>
+                            <th>Image</th>
+                            <th>Shop</th>
+                            <th>Unit Price(BAHT)</th>
+                            <th>Total Price</th>
+                            <th>Action</th>
+                        </tr>
+                        @foreach (var item in Model.CartDetails.GroupBy(cd => cd.MenuId))
+                        {
+                            var menu = item.First().Menu;
+                            var quantity = item.Sum(cd => cd.Quantity);
+                            var totalPrice = menu.Price * quantity;
+                        <tr>
+                            <td>@menu.MenuName</td>
+                            <td>
+                                <img src="@menu.Image" style="width:80px;height:100px" />
+                            </td>
+                            <td>@menu.Shop.MenuName</td>
+                            <td>@menu.Price X @quantity</td>
+                            <td>@totalPrice</td>
+                            <td>
+                                @if ((Model.CartDetails.Select(item => item.Quantity).Sum() < 5))
+                                {
+                                    <a class="btn btn-info" href="/Cart/AddItem?menuId=@menu.Id&&redirect=1">+</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-info" href="">+</a>
+                                }
+                                <a class="btn btn-info" href="/Cart/RemoveItem?menuid=@menu.Id">-</a>
+                            </td>
+                        </tr>
+                    }
+                    </table>
+
+                    <div class="my-2">
+                        <h6>Total(BAHT): </h6>
+                        @(Model.CartDetails.Select(item => item.Menu.Price * item.Quantity).Sum())
+                    </div>
+                    @* noti Max Cart*@
+                    @if ((Model.CartDetails.Select(item => item.Quantity).Sum() >= 5))
+                    {
+                        <h3>
+                            Max Cart!!!
+                        </h3>
+                    
+                    }
+                    <div id="txtbox">
+                        <form method="post" action="/Cart/Checkout">
+                            <input type="text" id="txt" placeholder="Detail" name="txt">
+                            <button type="submit" class="btn btn-primary">Checkout</button>
+                        </form>
+                    </div>
+
+                </div>
+
+            }
+            else
+            {
+                <div class="alert alert-dark bg-black border-0 text-white text-center"><h2>Cart is empty</h2></div>
+            }
+            <a href="/home/index" class="btn btn-primary my-2">Back</a>
+        </div>
+    </body>

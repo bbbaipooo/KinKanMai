@@ -1,0 +1,338 @@
+﻿@model MenuDisplayModel
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&display=swap" rel="stylesheet">
+    <!-- CSS Import-->
+    <link rel="stylesheet" href="/css/home.css" />
+    @*<link rel="stylesheet" href="/css/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />*@
+    <!-- for icons  -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <!-- MORE -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+
+<body>
+    <header>
+    </header>
+    <div id="viewport">
+        <div id="js-scroll-content">
+
+            <!--  Home Area -->
+            <section id="home" class="main-banner">
+                <div class="js-parallax-scene">
+                    <div class="banner-shape-1 w-100" data-depth="0.30">
+                        <img src="/berry.png" alt="berry" />
+                    </div>
+                    <div class="banner-shape-2 w-100" data-depth="0.25">
+                        <img src="/leaf.png" alt="berry" />
+                    </div>
+                </div>
+                <div class="sec-wp">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="banner-text">
+                                    <h1 class="h1-title">
+                                        Welcome to<br />
+                                        <span> Kin Kan Mai</span>
+                                        Delivery
+                                    </h1>
+                                    <p>
+                                        orem ipsum dolor sit amet consectetur adipisicing elit. At, qui vitae rerum ipsa
+                                        facere
+                                    </p>
+                                    <div class="btn-box">
+                                        <a href="#about" class="btn" onclick="window.scrollTo(0,document.body.scrollHeight-1000);"> More </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="banner-img" style="background-image: url(/main-b.jpg);"></div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+
+
+            <!-- Menu  Areaa -->
+            <section id="menu" style="background-image: url(/menu-bg.png); background-position: center;" class="our-menu section  repeat-img">
+                <div class="sec-wp">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="sec-title text-center mb-5">
+                                    <p class="sec-sub-title mb-3">Our Menu</p>
+                                    <h2 class="h2-title">restaurant in <span>RHONG PRA THEP</span></h2>
+                                    <div class="sec-title-shape mb-4">
+                                        <img src="/title-shape.svg" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- menu tab -->
+                        <div id="menu" class="menu">
+                            <div class="menu-tab-wp">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="menu-tab text-center">
+                                            <form method="post" action="/Home/Index">
+                                                <input type="hidden" name="shopId" value="0" />
+                                                <button type="submit" class="btn ">All</button>
+                                            </form>
+                                            @foreach (var shop in Model.Shops)
+                                            {
+                                                <form method="post" action="/Home/Index">
+                                                    <input type="hidden" name="shopId" value="@shop.Id" />
+                                                    <button type="submit" class="btn ">@shop.MenuName</button>
+                                                </form>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Menu list Areaa -->
+                        <div class="menu-list-row">
+                            <div id="menu-dish" class="row g-xxl-5">
+                                @foreach (var menu in Model.Menus)
+                                {
+                                    @if (@menu.ShopId == 6)
+                                    {
+                                        <div class="col-lg-4 col-sm-6 dish-box-wp ">
+                                            <div class="dish-box text-center">
+
+                                                <div class="drink-img">
+                                                    <img src="@menu.Image" class="" alt="..." />
+                                                </div>
+
+                                                <div class="dish-rating">
+                                                    5
+                                                    <i class="uil uil-star"></i>
+                                                </div>
+
+                                                <div class="dish-title">
+                                                    <h3 class="h3-title">@menu.MenuName</h3>
+                                                    <p>   </p>
+                                                </div>
+
+                                                <div class="dish-info">
+                                                    <ul>
+                                                        <li>
+                                                            <i class='bx bxs-drink'></i>
+                                                        </li>
+                                                        <li>
+                                                            <p> @menu.ShopName</p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="dist-bottom-row">
+                                                    <ul>
+                                                        <li>
+                                                            <b>THB. @menu.Price</b>
+                                                        </li>
+                                                        <li>
+                                                            <button class="dish-add-btn" onclick="add(@menu.Id)">
+                                                                <i class="uil uil-plus"></i>
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+
+                                        <div class="col-lg-4 col-sm-6 dish-box-wp ">
+                                            <div class="dish-box text-center">
+
+                                                <div class="dist-img">
+                                                    <img src="@menu.Image" class="" alt="..." />
+                                                </div>
+
+                                                <div class="dish-rating">
+                                                    5
+                                                    <i class="uil uil-star"></i>
+                                                </div>
+
+                                                <div class="dish-title">
+                                                    <h3 class="h3-title">@menu.MenuName</h3>
+                                                    <p>     </p>
+                                                </div>
+
+                                                <div class="dish-info">
+                                                    <ul>
+                                                        <li>
+                                                            <i class='bx bx-store-alt'></i>
+                                                        </li>
+                                                        <li>
+                                                            <p> @menu.ShopName</p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="dist-bottom-row">
+                                                    <ul>
+                                                        <li>
+                                                            <b>THB. @menu.Price</b>
+                                                        </li>
+                                                        <li>
+
+                                                            <button class="dish-add-btn" onclick="add(@menu.Id)">
+                                                                <i class="uil uil-plus"></i>
+                                                            </button>
+
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+            <!--  About Area -->
+            <section id="about" class="about-sec section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="sec-title text-center mb-5">
+                                <p class="sec-sub-title mb-3">About Us</p>
+                                <h2 class="h2-title"> <span>restraurant story</span></h2>
+                                <div class="sec-title-shape mb-4">
+                                    <img src="~/title-shape.svg" alt="" />
+                                </div>
+                                <p>
+                                    This is Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore facilis saepe
+                                    excepturi minus hic,
+                                    quod, veritatis nam autem velit officiis fugiat pariatur incidunt,
+                                    omnis repellat. Esse impedit vitae assumenda at ratione consectetur nostrum sint rerum
+                                    eos ab. Illum quam ipsam asperiores quisquam veniam minima voluptatum dolores nulla eum
+                                    cumque vero, quo cupiditate obcaecati velit, nisi sit a. Ea corporis nesciunt eos
+                                    perspiciatis? Quis sapiente distinctio reiciendis asperiores enim
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 m-auto">
+                            <div class="about-video">
+                                  <div  class="play-btn-wp"> 
+                                            <video id="about-video" width="100%">
+                                              <source src="/KinKanMai.mp4" type="video/mp4">
+                                              Your browser does not support HTML video.
+                                            </video>
+                                            <div class="ply">
+                                                <button onclick="playPause()" id="btn-video" class="play-btn"> <i class='bx bx-play'></i> </button> 
+                                                <span id="text-video">Play Video</span>
+            
+                                            </div>
+
+                                   </div> 
+      
+                                    <script> 
+                                            var vdo = document.getElementById("about-video"); 
+                                            var text_vdo = document.getElementById("text-video"); 
+                                            var button_vdo = document.getElementById("btn-video"); 
+        
+                                            function playPause() { 
+                                                if (vdo.paused){
+                                                    vdo.play(); 
+                                                    text_vdo.innerText = "Pause Video";
+                                                    button_vdo.innerHTML = "<i class='bx bx-stop' ></i>";
+                                                } 
+                                                else {
+                                                    vdo.pause(); 
+                                                    text_vdo.innerText = "Play Video";
+                                                    button_vdo.innerHTML = "<i class='bx bx-play'></i>";
+                                                }
+                                            } 
+                                  </script>      
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            @section Scripts{
+                <script>
+                    async function add(menuId) {
+                        var usernameEl = document.getElementById("username");
+                        if (usernameEl == null) {
+                            window.location.href = "/Identity/Account/Login";
+                            //var username=usernameEl.innerText;
+                            //  if(username.length<1){
+                            //      window.location.href="/Identity/Account/Login";
+                            //  }
+                        }
+                        try {
+                            var cartCountEl = document.getElementById("cartCount");
+                            console.log(cartCountEl)
+
+                            if (cartCountEl.innerHTML < 5) {
+                                var response = await fetch(`/Cart/AddItem?menuId=${menuId}`);
+
+                                if (response.status == 200) {
+
+                                    var result = await response.json();
+
+                                    console.log(response)
+                                    cartCountEl.innerHTML = result;
+                                    //window.location.href = "#cartCount";
+                                }
+                            }
+                            else {
+                                alert("Max cart")
+                            }
+                        }
+                        catch (err) {
+                            console.log(err);
+                        }
+                    }
+                </script>
+            }
+
+        </div>
+    </div>
+
+    <!-- Import JS-->
+    <script src="~/js/jquery-3.5.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/font-awesome.min.js"></script>
+    <script src="~/js/swiper-bundle.min.js"></script>
+    <script src="~/js/jquery.mixitup.min.js"></script>
+    <script src="~/js/jquery.fancybox.min.js"></script>
+    <script src="~/js/parallax.min.js"></script>
+    <script src="~/js/gsap.min.js"></script>
+    <script src="~/js/ScrollTrigger.min.js"></script>
+    <script src="~/js/ScrollToPlugin.min.js"></script>
+    <script src="~/js/smooth-scroll.js"></script>
+
+    <script src="~/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Order>
+@{
+    ViewData["Title"] = "OrderUsers";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/UserOrder.css" />
+<body>
+    <div class="my-order">
+        <div id="html" style="width:100%" class="mt-2">
+                <div class="Lines">
+                    <div class="Circle"></div>
+                </div>
+               
+                <div class="container">
+                    <span data-title="M">M</span>
+                    <span data-title="Y">Y</span>
+                    <span data-title="O">O</span>
+                    <span data-title="R">R</span>
+                    <span data-title="D">D</span>
+                    <span data-title="E">E</span>
+                    <span data-title="R">R</span>
+                </div>
+
+            <div class="bdy">
+                @*<img src="https://www.fondation-louisbonduelle.org/wp-content/uploads/2016/08/champignon-paris.png" alt="Image" class="left-image">
+                </div>*@
+                @if (Model != null && Model.Count() > 0)
+                {
+                    <div class="background">
+                    <table class="table table-striped">
+                            <tr id="headr">
+                                <th>OrderDate</th>
+                                <th>OrderStatus</th>
+                            </tr>
+                      
+                        @foreach (var order in Model.OrderByDescending(x => x.CreateDate))
+                        {
+                            <tr>
+                                <td>@order.CreateDate</td>
+                                <td>@order.OrderStatus.StatusName</td>
+                            </tr>
+                            @if (order.OrderDetail != null && order.OrderDetail.Count > 0)
+                            {
+                                <tr>
+                                    <td>
+                                        <table class="table table-striped2">
+                                            <tr>
+                                                <td>
+                                                    Total:
+                                                </td>
+                                                <td>
+                                                    @(order.OrderDetail.Select(item => item.Menu.Price * item.Quantity).Sum())
+
+                                                </td>
+                                            </tr>
+                                            <thead>
+                                                <tr>
+                                                    <th>Menu<span class="Menu"></span></th>
+                                                    <th>Image<span class="Image"></span></th>
+                                                    <th>Shop<span class="Shop"></span></th>
+                                                    <th>Unit Price(INR)<span class="Unit Price(Bath)"></span></th>
+                                                    <th>Total Price<span class="Total Price"></span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in order.OrderDetail)
+                                                {
+                                                    <tr>
+                                                        <td>@item.Menu.MenuName</td>
+                                                        <td>
+                                                                <img src="@item.Menu.Image" style="width:80px;height:100px" />
+                                                        </td>
+                                                        <td>@item.Menu.Shop.MenuName</td>
+                                                        <td>@item.Menu.Price X @item.Quantity</td>
+                                                        <td> @(item.Menu.Price * item.Quantity) </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                            }
+                            <td>Description : @order.Description</td>
+                        }
+                    </table>
+                    </div>
+                }
+                else
+                {
+                    <h5>No orders</h5>
+                }
+
+            </div>
+
+        </div>
+    </div>
+    <a href="/home/index" class="btn btn-primary my-2">Back</a>
+</body>
+
+
+

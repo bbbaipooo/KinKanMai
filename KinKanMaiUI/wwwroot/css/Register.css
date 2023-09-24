@@ -1,0 +1,197 @@
+﻿html {
+    font-family: 'Anton', sans-serif;
+}
+
+.bdy {
+    background: #251f21;
+    font-family: 'Anton', sans-serif;
+}
+
+.background {
+    width: 100%;
+    height: 100vh;
+    background: url("https://cdn.discordapp.com/attachments/887322828716781598/1101128706245795950/Dark_and_Moody_photography_1.jpg")no-repeat;
+    background-size: cover;
+    background-position: center;
+    filter: blur(10px)
+}
+
+.block {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 75%;
+    height: 75vh;
+    background: url("https://cdn.discordapp.com/attachments/887322828716781598/1101128706245795950/Dark_and_Moody_photography_1.jpg")no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.block .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-color: transparent;
+    color: azure;
+}
+
+.block .logreg-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(100% - 50%);
+    height: 100%;
+}
+
+.block .logo {
+    left: 0;
+    text-align: center;
+    position: absolute;
+    top: 56%;
+    left: 25%;
+}
+
+.block .content h2 {
+    font-size: 3rem;
+}
+
+
+.logreg-box .form-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    color: #e4e4e4;
+}
+
+.form-box .in-form-box {
+    margin-top: 50px;
+}
+
+.form-box h2 {
+    font-size: 2em;
+    text-align: center;
+}
+
+.form-box .input-box {
+    position: relative;
+    width: 2em;
+    height: 50px;
+    border-bottom: 2px solid #e4e4e4;
+    margin: 30px 0;
+}
+
+.ip-box input {
+    width: 18vw;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #e4e4e4;
+    font-weight: 500;
+}
+
+.ip-box label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 16px;
+    font-weight: 500;
+    pointer-events: none;
+    transition: .5s ease;
+    background-color: transparent;
+}
+
+.ip-box input:focus ~ label,
+.ip-box input:valid ~ label {
+    top: -6px;
+}
+
+.ip-box .icon {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    font-size: 19px;
+}
+
+.logreg-box .form-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 103%;
+    height: 100%;
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.form-box .remember {
+    font-size: 14.5px;
+    font-weight: 500;
+    margin: -15px 10px 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.remember label input {
+    accent-color: #e4e4e4;
+    margin-right: 3px;
+}
+
+.remember a {
+    color: #e4e4e4;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+    .remember a:hover {
+        text-decoration: underline;
+        color: #e4e4e4;
+    }
+
+
+
+.btnBT {
+    width: 100%;
+    height: 45px;
+    background: #96221c;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #e4e4e4;
+    font-weight: 500;
+    box-shadow: 0 0 10px rgba(0,0,0,.5);
+}
+
+.form-box .login-register {
+    font-size: 14.5px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.login-register p a {
+    color: #e4e4e4;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+    .login-register p a:hover {
+        text-decoration: underline;
+    }
